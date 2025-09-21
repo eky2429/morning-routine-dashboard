@@ -1,0 +1,27 @@
+ol {
+    background-color: #e3f2fd; /* light-blue */
+    border: 2px solid #000;   /* black border */
+    padding: 20px;
+    border-radius: 8px;
+    list-style-position: inside;
+}
+
+li {
+    background-color: #1976d2;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 8px 6px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+
+    /*Aligns text and icon within list items
+        - Text is on the left
+        - Icon is on the right
+    */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}

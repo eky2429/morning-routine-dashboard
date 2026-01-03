@@ -1,0 +1,73 @@
+ol {
+    background-color: #e3f2fd; /* light-blue */
+    border: 2px solid #000;   /* black border */
+    padding: 20px;
+    border-radius: 8px;
+    list-style-position: inside;
+}
+
+li {
+    background-color: #1976d2;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 8px 6px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+
+    /*Aligns text and icon within list items
+        - Text is on the left
+        - Icon is on the right
+    */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    cursor: grab;
+    transition: all 0.2s ease;
+}
+
+li:hover {
+    cursor: grab;
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+li.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+li.drag-over {
+    background-color: #0d47a1;
+    border: 2px dashed #fff;
+}
+
+/* Trash icon hover animation */
+.trash-icon {
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.trash-icon:hover {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* Time-based backgrounds */
+body.morning {
+    background: linear-gradient(135deg, #FFD89B 0%, #19547B 100%);
+    min-height: 100vh;
+}
+
+body.afternoon {
+    background: linear-gradient(135deg, #FFA751 0%, #FFE259 100%);
+    min-height: 100vh;
+}
+
+body.evening {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}

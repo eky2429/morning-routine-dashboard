@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Morning Routine</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <!--Heading - first section-->
+        <header>
+            <h1>Welcome to My Morning Routine</h1>
+            <h2 id="quote">Loading inspirational quote...</h2>
+        </header>
+        <hr /> 
+
+         <!--List - second section-->
+        <div>
+            <h2>Here, you can press the button below to add more tasks to your list!</h2>
+            <ol id="task-list">
+                <!--Tasks will be added here dynamically-->
+            </ol>
+        </div>
+
+        <!--Form - third section-->
+        <div>
+            <h2>Add a New Task</h2>
+            <form>
+                <input type="text" placeholder="Enter a new task" />
+                <button type="submit">Add Task</button>
+            </form> <br />
+
+            <button id="clear-tasks">Clear All Tasks</button>
+            <button id="save-tasks">Save Tasks</button>
+            <button id="reset-tasks">Reset Tasks</button>
+        </div>
+
+        <footer>
+            <hr />
+            <p>&copy; 2024 My Morning Routine</p>
+            Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank">ZenQuotes API</a>
+        </footer>
+
+        <script src="script.js"></script>
+        <script src="zen_quotes.js"></script>
+    </body>
+</html>

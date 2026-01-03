@@ -17,12 +17,8 @@
          <!--List - second section-->
         <div>
             <h2>Here, you can press the button below to add more tasks to your list!</h2>
-            <ol>
-                <li>Wake up early</li>
-                <li>Drink a glass of water</li>
-                <li>Do some light stretching</li>
-                <li>Have a healthy breakfast</li>
-                <li>Plan your day</li>
+            <ol id="task-list">
+                <!--Tasks will be added here dynamically-->
             </ol>
         </div>
 
@@ -32,7 +28,11 @@
             <form>
                 <input type="text" placeholder="Enter a new task" />
                 <button type="submit">Add Task</button>
-            </form>
+            </form> <br />
+
+            <button id="clear-tasks">Clear All Tasks</button>
+            <button id="save-tasks">Save Tasks</button>
+            <button id="reset-tasks">Reset Tasks</button>
         </div>
 
         <footer>

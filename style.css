@@ -1,60 +1,3 @@
-ol {
-    background-color: #e3f2fd; /* light-blue */
-    border: 2px solid #000;   /* black border */
-    padding: 20px;
-    border-radius: 8px;
-    list-style-position: inside;
-}
-
-li {
-    background-color: #1976d2;
-    color: #fff;
-    padding: 10px 20px;
-    margin: 8px 6px;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-
-    /*Aligns text and icon within list items
-        - Text is on the left
-        - Icon is on the right
-    */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: relative;
-    cursor: grab;
-    transition: all 0.2s ease;
-}
-
-li:hover {
-    cursor: grab;
-    transform: scale(1.02);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-li.dragging {
-    opacity: 0.5;
-    cursor: grabbing;
-}
-
-li.drag-over {
-    background-color: #0d47a1;
-    border: 2px dashed #fff;
-}
-
-/* Trash icon hover animation */
-.trash-icon {
-    transition: all 0.2s ease;
-    border-radius: 4px;
-    padding: 4px;
-}
-
-.trash-icon:hover {
-    outline: 2px solid #fff;
-    outline-offset: 2px;
-}
 
 /* Time-based backgrounds */
 body.morning {
@@ -70,4 +13,160 @@ body.afternoon {
 body.evening {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     min-height: 100vh;
+}
+
+/*Add spacing*/
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+section {
+    margin-bottom: 25px;
+}
+
+/* Quote styling */
+#quote {
+    font-style: italic;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+/* Progress text styling */
+#task-progress {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+
+/* Styling for Task section */
+
+ol {
+    background-color: #e3f2fd;
+    border: none;
+    /* padding: 20px; */
+    border-radius: 12px;
+    /* list-style-position: inside; */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    list-style: none;     /* remove default numbers */
+    padding: 20px;
+    margin: 10px;            /* remove top/bottom margin */
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.edit-input {
+    font-size: 1rem;
+    padding: 2px 4px;
+    width: 80%;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1976d2;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    cursor: grab;
+}
+
+li:hover {
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+li.dragging {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+li.drag-over {
+    background-color: #0d47a1;
+    border: 2px dashed #fff;
+}
+
+.task-text {
+    cursor: pointer;
+}
+
+/* Styling for special text */
+.completed .task-text {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
+.task-checkbox {
+    width: 18px;        /* exact width you want */
+    height: 18px;       /* exact height */
+    margin-right: 10px; /* spacing from text */
+    flex-shrink: 0;          /* prevent shrinking */
+    cursor: pointer;
+    vertical-align: middle; /* ensures it aligns with text */
+}
+
+.task-text {
+    flex-grow: 1;            /* text fills available space */
+    margin: 0 10px;          /* optional spacing around text */
+    overflow: hidden;
+    text-overflow: ellipsis; /* add ... if text is too long */
+    white-space: nowrap;     /* prevent wrapping */
+    cursor: text;
+}
+
+.delete-btn {
+    margin-left: 10px;
+    flex-shrink: 0;          /* keeps trash icon from shrinking */
+    cursor: pointer;
+}
+
+.completed {
+    background-color: #1565c0; /* slightly darker */
+}
+
+/* Trash icon hover animation */
+.trash-icon {
+    transition: all 0.2s ease;
+    border-radius: 4px;
+    padding: 4px;
+}
+
+.trash-icon:hover {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/*Styling for input*/
+input {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 60%;
+}
+
+/*Styling for buttons*/
+button {
+    background-color: #1976d2;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+button:hover {
+    background-color: #125aa0;
+}
+
+.buttons {
+    margin-top: 10px;
 }

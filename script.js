@@ -1,3 +1,23 @@
+import { loadQuotes, getRandomQuote } from './zen_quotes.js';
+
+async function initQuotes() {
+    await loadQuotes(); // ✅ wait until quotes are ready
+
+    displayNewQuote(); // now safe to use
+}
+
+function displayNewQuote() {
+    const quote = getRandomQuote();
+
+    if (!quote) {
+        document.getElementById('quote').textContent = "Loading...";
+        return;
+    }
+    document.getElementById('quote').textContent = quote;
+}
+
+initQuotes();
+
 // Sets background based on time of day
 function setBackgroundByTime() {
     const hour = new Date().getHours();
@@ -233,4 +253,49 @@ document.getElementById('reset-tasks').addEventListener('click', () => {
 window.addEventListener('DOMContentLoaded', () => {
     loadTasks();
     setBackgroundByTime();
+});
+
+//Prompt user with his/her name and save it to localStorage
+function promptForName() {
+    let name = localStorage.getItem('userName');
+    if (!name) {
+        name = prompt('Please enter your name:');
+        if (name) {
+            localStorage.setItem('userName', name);
+        }
+    }
+    return name;
+}
+
+const userName = promptForName();
+if (userName) {
+    document.getElementById('greeting').textContent = `Hello, ${userName}!`;
+}
+
+// Button to update name
+document.getElementById('update-name').addEventListener('click', () => {
+    const newName = prompt('Please enter your name:');
+    if (newName) {
+        localStorage.setItem('userName', newName);
+        document.getElementById('greeting').textContent = `Hello, ${newName}!`;
+    }
+});
+
+// Function to update the live clock every second
+function updateClock() {
+    const clockEl = document.getElementById('live-clock');
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    clockEl.textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+// Start the clock
+setInterval(updateClock, 1000);
+updateClock(); // Initial call to set time immediately on load
+
+// Button to fetch a new quote
+document.getElementById('new-quote').addEventListener('click', () => {
+    displayNewQuote();
 });

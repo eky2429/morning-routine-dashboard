@@ -1,13 +1,25 @@
 const api_url = "https://api.allorigins.win/get?url=https://zenquotes.io/api/quotes";
 
-async function getapi(url){
-    const response = await fetch(url);
-    var data = await response.json();
-    var quotes = JSON.parse(data.contents);
-    console.log(quotes);
+let quotes = [];
 
-    //Adds quote to h3 element
-    document.getElementById("quote").innerHTML = '"' + quotes[0]['q'] + '" - ' + quotes[0]['a'];
+let loaded = false;
+
+export async function loadQuotes(){
+    if (loaded) return;
+
+    const response = await fetch(api_url);
+    var data = await response.json();
+    quotes = JSON.parse(data.contents);
+    // console.log(quotes);
+    loaded = true;
 }
 
-getapi(api_url);
+export function getRandomQuote() {
+    if (quotes.length === 0) {
+        return null; // or fallback message
+    }
+
+    const randomIndex = Math.floor(Math.random() * quotes.length);
+    const quote = quotes[randomIndex];
+    return ('"' + quote['q'] + '" - ' + quote['a']);
+}

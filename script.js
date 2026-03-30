@@ -6,7 +6,7 @@ async function initQuotes() {
     displayNewQuote(); // now safe to use
 }
 
-function displayNewQuote() {
+function displayNewQuote() {    
     const quote = getRandomQuote();
 
     if (!quote) {
@@ -109,6 +109,7 @@ function enableDragAndDrop() {
 function createTaskElement(task) {
     const li = document.createElement('li');
 
+
     // Create checkbox (outside the label now)
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -119,6 +120,12 @@ function createTaskElement(task) {
     const span = document.createElement('span');
     span.classList.add('task-text');
     span.textContent = task.text;
+
+    //Create label tag
+    const labelTag = document.createElement('span');
+    labelTag.classList.add('task-label');
+    labelTag.textContent = task.label;
+    labelTag.setAttribute('data-label', task.label);
 
     // Apply completed style
     if (task.completed) {
@@ -166,6 +173,7 @@ function createTaskElement(task) {
     // Append elements to <li>
     li.appendChild(checkbox);
     li.appendChild(span);
+    li.appendChild(labelTag);
     li.appendChild(deleteBtn);
 
     return li;
@@ -177,8 +185,15 @@ function addTask() {
     const newTaskText = input.value.trim();
 
     if (newTaskText) {
+        const labelSelect = document.getElementById('task-label');
+        const selectedLabel = labelSelect.value;
+
         const ol = document.querySelector('ol');
-        const li = createTaskElement({ text: newTaskText, completed: false });
+        const li = createTaskElement({
+            text: newTaskText,
+            completed: false,
+            label: selectedLabel
+        });
         ol.appendChild(li);
         updateProgress();
 
@@ -197,7 +212,11 @@ function loadTasks() {
     savedTasks.forEach(task => {
         // Handle old format (string)
         if (typeof task === 'string') {
-            task = { text: task, completed: false };
+            task = {
+                text: task.text,
+                completed: task.completed,
+                label: task.label || "Other"
+            };
         }
         ol.appendChild(createTaskElement(task));
     });
@@ -214,7 +233,13 @@ function saveTasks() {
         const text = li.querySelector('.task-text').textContent;
         const completed = li.querySelector('.task-checkbox').checked;
 
-        tasks.push({ text, completed });
+        const label = li.querySelector('.task-label')?.textContent || "Other";
+
+        tasks.push({
+            text,
+            completed,
+            label
+        });
     });
 
     localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -244,7 +269,7 @@ document.getElementById('reset-tasks').addEventListener('click', () => {
 
     const ol = document.querySelector('ol');
     ol.innerHTML = '';
-    defaultTasks.forEach(task => ol.appendChild(createTaskElement({ text: task, completed: false })));
+    defaultTasks.forEach(task => ol.appendChild(createTaskElement({ text: task, completed: false, label: "Other" })));
     enableDragAndDrop();
     saveTasks(); // Auto-save after reset
 });
@@ -298,4 +323,31 @@ updateClock(); // Initial call to set time immediately on load
 // Button to fetch a new quote
 document.getElementById('new-quote').addEventListener('click', () => {
     displayNewQuote();
+});
+
+//Filters tasks based on selected label
+function filterTasks(label) {
+    const tasks = document.querySelectorAll('ol li');
+
+    tasks.forEach(li => {
+        const taskLabel = li.querySelector('.task-label')?.textContent;
+
+        if (label === "All" || taskLabel === label) {
+            li.style.display = "flex";
+        } else {
+            li.style.display = "none";
+        }
+    });
+}
+
+document.querySelectorAll('#filter-buttons button').forEach(button => {
+    button.addEventListener('click', () => {
+        document.querySelectorAll('#filter-buttons button')
+            .forEach(btn => btn.classList.remove('active'));
+
+        button.classList.add('active');
+
+        const filter = button.getAttribute('data-filter');
+        filterTasks(filter);
+    });
 });

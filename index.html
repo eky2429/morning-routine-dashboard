@@ -14,7 +14,7 @@
             <header>
                 <h1>Welcome to My Morning Routine</h1>
 
-                <div display="flex" flex-direction="row" align-items="center">
+                <div style="display: flex; flex-direction: row; align-items: center; gap: 20px; justify-self: center;">
                     <h2 id="quote">Loading inspirational quote...</h2>
                     <button id="new-quote">New Quote</button>
                 </div>
@@ -26,7 +26,18 @@
             <!--List - second section-->
             <section id = "task-section">
                 <h2>Here, you can press the button below to add more tasks to your list!</h2>
-                <p id="task-progress">0 / 0 tasks completed</p>
+
+                <div style="display: flex; flex-direction: row; align-items: center; gap: 50px;">
+                    <p id="task-progress">0 / 0 tasks completed</p>
+                    <div id="filter-buttons">
+                        <button data-filter="All">All</button>
+                        <button data-filter="Spiritual">🙏 Spiritual</button>
+                        <button data-filter="Mind">🧠 Mind</button>
+                        <button data-filter="Body">💪 Body</button>
+                        <button data-filter="Other">📌 Other</button>
+                    </div>
+                </div>
+
                 <ol id="task-list">
                     <!--Tasks will be added here dynamically-->
                 </ol>
@@ -37,6 +48,14 @@
                 <h2>Add a New Task</h2>
                 <form>
                     <input type="text" placeholder="Enter a new task" />
+
+                    <select id="task-label">
+                        <option value="Spiritual">🙏 Spiritual</option>
+                        <option value="Mind">🧠 Mind</option>
+                        <option value="Body">💪 Body</option>
+                        <option value="Other">📌 Other</option>
+                    </select>
+
                     <button type="submit">Add Task</button>
                 </form> <br />
 

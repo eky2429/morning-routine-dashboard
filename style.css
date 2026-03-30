@@ -38,6 +38,34 @@ section {
     color: #333;
 }
 
+/* Task Label Styling */
+.task-label {
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-left: 10px;
+    flex-shrink: 0;
+    color: white;
+}
+
+/* Color per label */
+.task-label[data-label="Spiritual"] {
+    background-color: #8e24aa; /* purple */
+}
+
+.task-label[data-label="Mind"] {
+    background-color: #00897b; /* teal */
+}
+
+.task-label[data-label="Body"] {
+    background-color: #43a047; /* green */
+}
+
+.task-label[data-label="Other"] {
+    background-color: #546e7a; /* gray */
+}
+
 
 /* Styling for Task section */
 
@@ -169,4 +197,8 @@ button:hover {
 
 .buttons {
     margin-top: 10px;
+}
+
+#filter-buttons button.active {
+    background-color: #0d47a1;
 }

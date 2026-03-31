@@ -1,5 +1,7 @@
 const api_url = "https://api.allorigins.win/get?url=https://zenquotes.io/api/quotes";
 
+let loading_quote_text = "Loading quote...";
+
 let quotes = [];
 
 let loaded = false;

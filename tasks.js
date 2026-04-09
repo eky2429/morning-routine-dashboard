@@ -96,6 +96,38 @@ export function createTaskElement(task) {
     const timeTag = document.createElement('span');
     timeTag.classList.add('task-time');
     timeTag.textContent = `${task.time} min`;
+    timeTag.title = "Double-click to edit time";
+    timeTag.addEventListener('dblclick', (e) => {
+        e.stopPropagation();
+
+        const currentTime = parseInt(timeTag.textContent) || 0;
+
+        const input = document.createElement('input');
+        input.type = 'number';
+        input.value = currentTime;
+        input.min = 0;
+        input.classList.add('edit-input');
+
+        li.replaceChild(input, timeTag);
+        input.focus();
+        input.select();
+
+        function finishEdit() {
+            const newTime = parseInt(input.value) || 0;
+            timeTag.textContent = `${newTime} min`;
+            li.replaceChild(timeTag, input);
+
+            saveTasks();
+            updateTotalTime(); // 🔥 important
+        }
+
+        input.addEventListener('blur', finishEdit);
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') finishEdit();
+            if (e.key === 'Escape') li.replaceChild(timeTag, input);
+        });
+    });
 
     //Create label tag
     const labelTag = document.createElement('span');

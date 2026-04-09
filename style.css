@@ -70,6 +70,15 @@ section {
     background-color: #f57c00; /* orange */
 }
 
+.task-time {
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.task-time:hover {
+    background-color: #e3f2fd;
+}
+
 
 /* Styling for Task section */
 

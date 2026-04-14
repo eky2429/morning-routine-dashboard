@@ -290,6 +290,16 @@ export function saveTasks() {
         });
     });
 
+    //Update progress bar and text before saving
+    const progressBar = document.getElementById('task-progress-bar');
+    const totalTasks = tasks.length;
+    const completedTasks = tasks.filter(task => task.completed).length;
+    progressBar.max = totalTasks;
+    progressBar.value = completedTasks;
+
+    const progressText = document.getElementById('task-progress');
+    progressText.textContent = `${completedTasks} / ${totalTasks} tasks completed`;
+
     localStorage.setItem('tasks', JSON.stringify(tasks));
     console.log('Tasks saved:', tasks);
 }

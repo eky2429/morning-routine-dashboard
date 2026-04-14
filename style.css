@@ -34,7 +34,6 @@ section {
 /* Progress text styling */
 #task-progress {
     font-weight: bold;
-    margin-bottom: 10px;
     color: #333;
 }
 
@@ -47,6 +46,15 @@ section {
     margin-left: 10px;
     flex-shrink: 0;
     color: white;
+}
+
+progress {
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: rgb(71, 185, 71);
 }
 
 /* Create a unique style for each well-being category */

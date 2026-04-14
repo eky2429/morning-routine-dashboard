@@ -28,7 +28,10 @@
                 <h2>Here, you can press the button below to add more tasks to your list!</h2>
 
                 <div style="display: flex; flex-direction: row; align-items: center; gap: 50px;">
-                    <p id="task-progress">0 / 0 tasks completed</p>
+                    <div>
+                        <p id="task-progress">0 / 0 tasks completed</p>
+                        <progress id="task-progress-bar" value="2" max="10"></progress>
+                    </div>
                     <div id="filter-buttons">
                         <button data-filter="All">All</button>
                     </div>

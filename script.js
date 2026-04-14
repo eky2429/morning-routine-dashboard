@@ -1,4 +1,4 @@
-import { loadTasks, addTask, saveTasks, enableDragAndDrop, filterTasks, createTaskElement } from './tasks.js';
+import { loadTasks, addTask, saveTasks, enableDragAndDrop, filterTasks, createTaskElement, updateProgress, updateTotalTime } from './tasks.js';
 import { setBackgroundByTime, updateClock } from './clock.js';
 import { initQuotes, displayNewQuote } from './quotes.js';
 import {tags, getEmoji, getText} from './data/tags.js';
@@ -110,6 +110,69 @@ function resetTasks() {
         saveTasks(); // Auto-save after resetting tasks
     }
 }
+
+//Add listener to morning mode button to create an overlay with a timer and a button that the user can click when they are done with their morning routine
+document.getElementById('morning-mode').addEventListener('click', () => {
+
+    //Create an overlay div
+    const overlay = document.createElement('div');
+    overlay.id = 'morning-mode-overlay';
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+    overlay.style.display = 'flex';
+    overlay.style.flexDirection = 'column';
+    overlay.style.justifyContent = 'center';
+    overlay.style.alignItems = 'center';
+    overlay.style.zIndex = '1000';
+
+    //Create a timer element
+    const timerElement = document.createElement('div');
+    timerElement.id = 'morning-mode-timer';
+    timerElement.style.fontSize = '48px';
+    timerElement.style.color = '#fff';
+    timerElement.textContent = '00:00';
+
+    //Create a done button
+    const doneButton = document.createElement('button');
+    doneButton.textContent = "I'm Done!";
+    doneButton.style.padding = '10px 20px';
+    doneButton.style.fontSize = '16px';
+    doneButton.style.marginTop = '20px';
+
+    //Add timer and button to the overlay
+    overlay.appendChild(timerElement);
+    overlay.appendChild(doneButton);
+    document.body.appendChild(overlay);
+
+    let startTime = Date.now();
+
+    //Update the timer every second
+    const timerInterval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const minutes = Math.floor(elapsed / 60000).toString().padStart(2, '0');
+        const seconds = Math.floor((elapsed % 60000) / 1000).toString().padStart(2, '0');
+        timerElement.textContent = `${minutes}:${seconds}`;
+    }, 1000);
+
+    //When the done button is clicked, stop the timer and remove the overlay
+    doneButton.addEventListener('click', () => {
+        clearInterval(timerInterval);
+        alert(`Great job! You spent ${timerElement.textContent} on your morning routine.`);
+        //Checks all tasks as completed when morning mode is done
+        document.querySelectorAll('ol li input[type="checkbox"]').forEach(checkbox => {
+            checkbox.checked = true;
+            saveTasks();
+            updateProgress();
+            updateTotalTime();
+        });
+        saveTasks(); // Auto-save after marking tasks as completed
+        document.body.removeChild(overlay);
+    });
+});
 
 // Start the clock
 setInterval(updateClock, 1000);

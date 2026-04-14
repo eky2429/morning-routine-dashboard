@@ -14,6 +14,7 @@ function loadTaskSettings(){
         const filterButton = document.createElement('button');
         filterButton.setAttribute('data-filter', label);
         filterButton.textContent = `${emoji} ${label}`;
+        
         //Add event listener to filter tasks when the button is clicked
         filterButton.addEventListener('click', () => {
             document.querySelectorAll('#filter-buttons button')
@@ -94,12 +95,29 @@ document.getElementById('reset-tasks').addEventListener('click', () => {
     saveTasks(); // Auto-save after reset
 });
 
+
+//This is called to check if it is a new day and unchecks all current tasks if it is
+    //Otherwise, it does nothing and leaves the tasks as they are
+function resetTasks() {
+    const lastReset = localStorage.getItem('lastReset');
+    const today = new Date().toDateString();
+
+    if (lastReset !== today) {
+        localStorage.setItem('lastReset', today);
+        document.querySelectorAll('ol li input[type="checkbox"]').forEach(checkbox => {
+            checkbox.checked = false;
+        });
+        saveTasks(); // Auto-save after resetting tasks
+    }
+}
+
 // Start the clock
 setInterval(updateClock, 1000);
 updateClock(); // Initial call to set time immediately on load
 
 // Initial setup on page load
 window.addEventListener('DOMContentLoaded', () => {
+    resetTasks(); // Load default tasks on page load
     loadTaskSettings();
     loadTasks();
     loadPresets(); // Load presets into the dropdown

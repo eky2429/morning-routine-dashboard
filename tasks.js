@@ -107,9 +107,11 @@ export function createTaskElement(task) {
         e.stopPropagation();
 
         const currentTime = parseInt(timeTag.textContent) || 0;
+        const timeTagWidth = timeTag.style.width || '50px'; // Default width if not set
 
         //Create an input element to edit the time
         const input = document.createElement('input');
+        input.style.width = timeTagWidth; // Set a fixed width for the time input
         input.type = 'number';
         input.value = currentTime;
         input.min = 0;

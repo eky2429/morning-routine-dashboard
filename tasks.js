@@ -26,6 +26,7 @@ export function createTrashIcon() {
 
     trash.addEventListener('click', function (e) {
         e.stopPropagation();
+        // Remove the parent <li> element
         this.parentElement.remove();
         updateProgress();
         updateTotalTime();
@@ -78,40 +79,48 @@ export function enableDragAndDrop() {
 
 // Creates a task <li> element from text and completion state
 export function createTaskElement(task) {
+    //Creates the li element
     const li = document.createElement('li');
 
 
-    // Create checkbox (outside the label now)
+    // Create checkbox (outside the label now) (task.completed is a boolean)
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.classList.add('task-checkbox');
     checkbox.checked = task.completed;
 
     // Create task text span
+        //Task.text is the text of the task
     const span = document.createElement('span');
     span.classList.add('task-text');
     span.textContent = task.text;
 
     //Create a time tag span
+        //task.time is the time in minutes for the task
     const timeTag = document.createElement('span');
     timeTag.classList.add('task-time');
     timeTag.textContent = `${task.time} min`;
     timeTag.title = "Double-click to edit time";
+    //Listener that triggers when user double clicks the time tage
     timeTag.addEventListener('dblclick', (e) => {
+        // Prevent the double-click from also triggering the task text edit
         e.stopPropagation();
 
         const currentTime = parseInt(timeTag.textContent) || 0;
 
+        //Create an input element to edit the time
         const input = document.createElement('input');
         input.type = 'number';
         input.value = currentTime;
         input.min = 0;
         input.classList.add('edit-input');
-
         li.replaceChild(input, timeTag);
+
+        // Focus and select the input for easier editing
         input.focus();
         input.select();
 
+        //Called to save the time
         function finishEdit() {
             const newTime = parseInt(input.value) || 0;
             timeTag.textContent = `${newTime} min`;
@@ -121,8 +130,10 @@ export function createTaskElement(task) {
             updateTotalTime(); // 🔥 important
         }
 
+        // When the input loses focus, save the new time
         input.addEventListener('blur', finishEdit);
 
+        // When the user presses Enter, save the new time. If they press Escape, cancel the edit.
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') finishEdit();
             if (e.key === 'Escape') li.replaceChild(timeTag, input);
@@ -130,12 +141,13 @@ export function createTaskElement(task) {
     });
 
     //Create label tag
+        //task.label is the label for the task (e.g. "Spiritual", "Mind", etc.)
     const labelTag = document.createElement('span');
     labelTag.classList.add('task-label');
     labelTag.textContent = task.label;
-    labelTag.setAttribute('data-label', task.label);
+    labelTag.classList.add(task.label); // Add a class based on the label for styling
 
-    // Apply completed style
+    // Apply completed style if task is completed
     if (task.completed) {
         li.classList.add('completed');
     }
@@ -148,20 +160,23 @@ export function createTaskElement(task) {
         updateTotalTime();
     });
 
-    // Double-click to edit text
+    // Double-click to edit span / name of task
     span.addEventListener('dblclick', (e) => {
         e.stopPropagation();
         const currentText = span.textContent;
 
+        //Create an input element to edit the task text
         const input = document.createElement('input');
         input.type = 'text';
         input.value = currentText;
         input.classList.add('edit-input');
-
         li.replaceChild(input, span);
-        input.focus();
-        input.select(); // Optional: select all text immediately
 
+        // Focus and select the input for easier editing
+        input.focus();
+        input.select();
+
+        //Called to save the task text
         function finishEdit() {
             span.textContent = input.value.trim() || currentText;
             li.replaceChild(span, input);
@@ -169,7 +184,9 @@ export function createTaskElement(task) {
             updateProgress();
         }
 
+        // When the input loses focus, save the new task text
         input.addEventListener('blur', finishEdit);
+        // When the user presses Enter, save the new task text. If they press Escape, cancel the edit.
         input.addEventListener('keydown', (e) => {
             if (e.key === 'Enter') finishEdit();
             if (e.key === 'Escape') li.replaceChild(span, input);
@@ -185,7 +202,6 @@ export function createTaskElement(task) {
     li.appendChild(labelTag);
     li.appendChild(timeTag);
     li.appendChild(deleteBtn);
-
     return li;
 }
 
@@ -280,13 +296,15 @@ export function saveTasks() {
 export function filterTasks(label) {
     const tasks = document.querySelectorAll('ol li');
 
+    //Compare the label of each task to the selected label. If they match, show the task. If the selected label is "All", show all tasks. Otherwise, hide the task.
+
     tasks.forEach(li => {
-        const taskLabel = li.querySelector('.task-label')?.textContent;
+        const taskLabel = li.querySelector('.task-label')?.textContent || "Other";
 
         if (label === "All" || taskLabel === label) {
-            li.style.display = "flex";
+            li.style.display = '';
         } else {
-            li.style.display = "none";
+            li.style.display = 'none';
         }
     });
 }

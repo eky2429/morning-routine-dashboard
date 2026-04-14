@@ -49,26 +49,47 @@ section {
     color: white;
 }
 
-/* Color per label */
-.task-label[data-label="Spiritual"] {
-    background-color: #8e24aa; /* purple */
+/* Create a unique style for each well-being category */
+.task-label.Spiritual {
+    background-color: #4caf50; /* Green */
 }
 
-.task-label[data-label="Mind"] {
-    background-color: #00897b; /* teal */
+.task-label.Intellectual {
+    background-color: #00897b; /* Teal */
 }
 
-.task-label[data-label="Body"] {
-    background-color: #43a047; /* green */
+.task-label.Physical {
+    background-color: #43a047; /* Green */
 }
 
-.task-label[data-label="Other"] {
-    background-color: #546e7a; /* gray */
+.task-label.Occupational {
+    background-color: #1e88e5; /* Blue */
 }
 
-.task-label[data-label="Productivity"] {
-    background-color: #f57c00; /* orange */
+.task-label.Social {
+    background-color: #f4511e; /* Deep Orange */
 }
+
+.task-label.Environmental {
+    background-color: #6d4c41; /* Brown */
+}
+
+.task-label.Emotional {
+    background-color: #e53935; /* Red */
+}
+
+.task-label.Financial {
+    background-color: #ffb300; /* Amber */
+}
+
+.task-label.Other {
+    background-color: #546e7a; /* Gray */
+}
+
+/* .task-label.Productivity {
+    background-color: #f57c00; Orange 
+}
+*/
 
 .task-time {
     cursor: pointer;
@@ -206,10 +227,6 @@ button {
 
 button:hover {
     background-color: #125aa0;
-}
-
-.buttons {
-    margin-top: 10px;
 }
 
 #filter-buttons button.active {

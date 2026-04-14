@@ -31,11 +31,6 @@
                     <p id="task-progress">0 / 0 tasks completed</p>
                     <div id="filter-buttons">
                         <button data-filter="All">All</button>
-                        <button data-filter="Spiritual">🙏 Spiritual</button>
-                        <button data-filter="Mind">🧠 Mind</button>
-                        <button data-filter="Body">💪 Body</button>
-                        <button data-filter="Other">📌 Other</button>
-                        <button data-filter="Productivity">📌 Productivity</button>
                     </div>
                 </div>
 
@@ -50,12 +45,8 @@
                 <form>
                     <input type="text" placeholder="Enter a new task" />
 
+                    <!--This will later be populated with the tags from the tags.js file-->
                     <select id="task-label">
-                        <option value="Spiritual">🙏 Spiritual</option>
-                        <option value="Mind">🧠 Mind</option>
-                        <option value="Body">💪 Body</option>
-                        <option value="Other">📌 Other</option>
-                        <option value="Productivity">📌 Productivity</option>
                     </select>
 
                     <input type="number" id="task-time" placeholder="Minutes" min="1" />
@@ -63,12 +54,17 @@
                     <button type="submit">Add Task</button>
                 </form> <br />
 
-                <div class = "buttons">
-                    <button id="clear-tasks">Clear All Tasks</button>
-                    <button id="reset-tasks">Reset Tasks</button>
-                </div>
+                <div>
+                    <button id="clear-tasks">Clear All Tasks</button> <br/>
 
-                <button id="update-name">Update name</button>
+                    <!--Add a dropdown of presets to choose from-->
+                        <select id="preset-tasks">
+                            <option value="">Select a preset</option>
+                        </select>
+                        <button id="reset-tasks">Reset Tasks</button> <br/>
+
+                    <button id="update-name">Update name</button>
+                </div>
 
             </section>
         </main>
@@ -79,6 +75,8 @@
         </footer>
 
         <script type = "module" src="zen_quotes.js"></script>
+        <script type = "module" src="data/tags.js"></script> 
+        <script type = "module" src="data/presets.js"></script> 
         <script type = "module" src="quotes.js"></script>
         <script type = "module" src="clock.js"></script>
         <script type = "module" src="user.js"></script>

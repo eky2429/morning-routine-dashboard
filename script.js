@@ -3,6 +3,7 @@ import { setBackgroundByTime, updateClock } from './clock.js';
 import { initQuotes, displayNewQuote } from './quotes.js';
 import {tags, getEmoji, getText} from './data/tags.js';
 import {presets} from './data/presets.js';
+import { addStreak } from './streakSystem.js';
 
 // Load task settings (labels and filter buttons) based on the tags array
 function loadTaskSettings(){
@@ -103,6 +104,8 @@ function resetTasks() {
     const today = new Date().toDateString();
 
     if (lastReset !== today) {
+        alert("Tasks have been reset");
+
         localStorage.setItem('lastReset', today);
         document.querySelectorAll('ol li input[type="checkbox"]').forEach(checkbox => {
             checkbox.checked = false;
@@ -174,6 +177,22 @@ document.getElementById('morning-mode').addEventListener('click', () => {
     });
 });
 
+//Connects play music button to an event listener
+    //Plays a random playlist when button is clicked
+document.getElementById('play-music').addEventListener('click', () => {
+    const playlists = [
+        'https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M', // Spotify's "Today's Top Hits"
+        'https://open.spotify.com/playlist/37i9dQZF1DWXJfnUiYjUKT', // Spotify's "Peaceful Piano"
+        'https://open.spotify.com/playlist/37i9dQZF1DX0XUsuxWHRQd', // Spotify's "Morning Acoustic"
+        'https://open.spotify.com/playlist/37i9dQZF1DWVqfgj8NZEp7', // Spotify's "Wake Up Happy"
+        'https://open.spotify.com/playlist/37i9dQZF1DX4E3UdUs7fUx'  // Spotify's "Feel Good Indie Rock"
+    ];
+
+    //Get a random playlist from array
+    const randomPlaylist = playlists[Math.floor(Math.random() * playlists.length)];
+    window.open(randomPlaylist, '_blank'); // Open the playlist in a new tab
+});
+
 // Start the clock
 setInterval(updateClock, 1000);
 updateClock(); // Initial call to set time immediately on load
@@ -185,6 +204,8 @@ window.addEventListener('DOMContentLoaded', () => {
     loadTasks();
     loadPresets(); // Load presets into the dropdown
     setBackgroundByTime();
+    addStreak(); // Check and update streak count on page load
+    saveTasks();
 });
 
 

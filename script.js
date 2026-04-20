@@ -104,13 +104,16 @@ function resetTasks() {
     const today = new Date().toDateString();
 
     if (lastReset !== today) {
-        alert("Tasks have been reset");
-
         localStorage.setItem('lastReset', today);
-        document.querySelectorAll('ol li input[type="checkbox"]').forEach(checkbox => {
-            checkbox.checked = false;
+        //Unchecks all tasks as completed when morning mode is done
+        document.querySelectorAll('ol li').forEach(li => {
+            const checkbox = li.querySelector('input[type="checkbox"]');
+            if (checkbox) {
+                checkbox.checked = false;
+                li.classList.remove('completed');
+            }
         });
-        saveTasks(); // Auto-save after resetting tasks
+        alert("Tasks have been reset");
     }
 }
 
@@ -166,13 +169,15 @@ document.getElementById('morning-mode').addEventListener('click', () => {
         clearInterval(timerInterval);
         alert(`Great job! You spent ${timerElement.textContent} on your morning routine.`);
         //Checks all tasks as completed when morning mode is done
+        document.querySelectorAll('ol li').forEach(checkbox => {
+            classList.toggle('completed', true);
+        });
         document.querySelectorAll('ol li input[type="checkbox"]').forEach(checkbox => {
             checkbox.checked = true;
-            saveTasks();
-            updateProgress();
-            updateTotalTime();
         });
         saveTasks(); // Auto-save after marking tasks as completed
+        updateProgress();
+        updateTotalTime();
         document.body.removeChild(overlay);
     });
 });
@@ -199,11 +204,15 @@ updateClock(); // Initial call to set time immediately on load
 
 // Initial setup on page load
 window.addEventListener('DOMContentLoaded', () => {
-    resetTasks(); // Load default tasks on page load
+    //Load settings to be added to website
     loadTaskSettings();
     loadTasks();
     loadPresets(); // Load presets into the dropdown
-    setBackgroundByTime();
+    setBackgroundByTime(); // Loads background
+
+
+    resetTasks(); // Load default tasks on page load
+
     addStreak(); // Check and update streak count on page load
     saveTasks();
 });
